@@ -8,7 +8,7 @@ public class Solution {
                 if(j == 0 || i == 0) {
                     c = 1;
                 } else {
-                    c=c * (i - j + 1)/j;
+                    c = c * (i - j + 1)/j;
                 }
                 curr.Add(c);
             }
