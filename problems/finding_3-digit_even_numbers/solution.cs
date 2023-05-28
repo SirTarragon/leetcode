@@ -1,29 +1,30 @@
 public class Solution {
     public int[] FindEvenNumbers(int[] digits) {
-        int[] digitCount = {0,0,0,0,0,0,0,0,0,0};
-        foreach(int digit in digits)
-            digitCount[digit]++;
+        int[] digitCount = new int[10];
+        foreach(int d in digits)
+            digitCount[d]++;
         List<int> output = new();
-        for(int num = 100; num < 999; num += 2) {
-            int[] currentCount = {0,0,0,0,0,0,0,0,0,0};
-            int temp = num;
-            
-            //max loop is 3
-            while(temp > 0) {
-                currentCount[temp % 10]++;
-                temp /= 10;
-            }
+        for(int i = 100; i < 999; i += 2) {
+            byte d1 = (byte)(i % 10), 
+                d2 = (byte)((i / 10) % 10),
+                d3 = (byte)((i / 100) % 10);
+            digitCount[d1]--;
+            digitCount[d2]--;
+            digitCount[d3]--;
 
             bool flag = true;
-            for(int i = 0; i < 10; i++) {
-                if(currentCount[i] > digitCount[i]) {
-                    flag = false;
-                    break;
-                }
+            if(digitCount[d1] < 0 || 
+               digitCount[d2] < 0 ||
+               digitCount[d3] < 0) {
+                   flag = false;
             }
 
+            digitCount[d1]++;
+            digitCount[d2]++;
+            digitCount[d3]++;
+
             if(flag)
-                output.Add(num);
+                output.Add(i);
         }
         return output.ToArray();
     }
