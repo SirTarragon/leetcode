@@ -2,14 +2,14 @@ public class RandomizedSet {
     private Dictionary<int, int> dictKeys;
     private Dictionary<int, int> dictValues;
     private HashSet<int> deletedKeys;
-    private int KeyCounter;
+    private int KeyCounter, start;
     private Random rand;
 
     public RandomizedSet() {
         dictKeys = new Dictionary<int, int>();
         dictValues = new Dictionary<int, int>();
         deletedKeys = new HashSet<int>();
-        KeyCounter = 1;
+        KeyCounter = 1; start = 1;
         rand = new Random();
     }
     
@@ -35,13 +35,15 @@ public class RandomizedSet {
     }
     
     public int GetRandom() {
-        while(true) {
-            int randIndex = rand.Next(1, KeyCounter);
-
-            if(!deletedKeys.Contains(randIndex)) {
-                return dictKeys[randIndex];
-            }
+        int randIndex = rand.Next(start, KeyCounter);
+        int i = 0;
+        while(deletedKeys.Contains(randIndex)) {
+            Console.WriteLine(++i);
+            while(deletedKeys.Contains(start))
+                start++;
+            randIndex = rand.Next(start, KeyCounter);
         }
+        return dictKeys[randIndex];
     }
 }
 
