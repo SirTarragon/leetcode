@@ -36,9 +36,7 @@ public class RandomizedSet {
     
     public int GetRandom() {
         int randIndex = rand.Next(start, KeyCounter);
-        int i = 0;
         while(deletedKeys.Contains(randIndex)) {
-            Console.WriteLine(++i);
             while(deletedKeys.Contains(start))
                 start++;
             randIndex = rand.Next(start, KeyCounter);
