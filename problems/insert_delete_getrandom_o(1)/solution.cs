@@ -35,10 +35,9 @@ public class RandomizedSet {
     }
     
     public int GetRandom() {
+        while(deletedKeys.Contains(start)) start++;
         int randIndex = rand.Next(start, KeyCounter);
         while(deletedKeys.Contains(randIndex)) {
-            while(deletedKeys.Contains(start))
-                start++;
             randIndex = rand.Next(start, KeyCounter);
         }
         return dictKeys[randIndex];
