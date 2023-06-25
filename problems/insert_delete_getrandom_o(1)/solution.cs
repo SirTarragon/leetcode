@@ -29,6 +29,7 @@ public class RandomizedSet {
             dictValues.Remove(val);
             dictKeys.Remove(key);
             deletedKeys.Add(key);
+            if(key == start) start++;
             return true;
         }
         return false;
