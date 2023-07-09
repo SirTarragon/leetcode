@@ -1,34 +1,34 @@
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
+
+
 public class MyQueue {
-    Stack<int> queue;
-    Stack<int> loader;
-    int front;
+    Stack<int> q, l; // queue and loader
 
     public MyQueue() {
-        queue = new Stack<int>();
-        loader = new Stack<int>();
+        q = new Stack<int>();
+        l = new Stack<int>();
     }
     
     public void Push(int x) {
-        if(queue.Count == 0)
-            front = x;
-
-        while(queue.Count != 0)
-            loader.Push(queue.Pop());
-        loader.Push(x);
-
-        while(loader.Count != 0)
-            queue.Push(loader.Pop());
+        StackReverse(ref l, ref q);
+        l.Push(x);
+        StackReverse(ref q, ref l);
     }
     
-    public int Pop() {
-        int p = queue.Pop();
-        if(queue.Count != 0)
-            front = queue.Peek();
-        return p;
+    public int Pop() => q.Pop();
+    public int Peek() => q.Peek();
+    public bool Empty() => q.Count == 0;
+
+    private void StackReverse(ref Stack<int> r, ref Stack<int> t) {
+        while(t.Count != 0) r.Push(t.Pop());
     }
-    
-    public int Peek() => front;
-    public bool Empty() => queue.Count == 0;
 }
 
 /**
